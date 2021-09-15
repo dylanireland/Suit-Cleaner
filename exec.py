@@ -1,12 +1,17 @@
 import re
 import glob
+import os
+
+files = [f for f in glob.glob("*.txt")]
+outputFolderName = "output"
 
 
-files = [f for f in glob.glob("../docs/*.txt")]
+if not os.path.isdir(outputFolderName):
+    os.makedirs(outputFolderName)
 
 def execute(fileName):
     doc = open(fileName, "r")
-    outfile = open(fileName.replace("../docs/", ""), "w")
+    outfile = open(outputFolderName + "/" + fileName, "w")
 
     for line in doc:
         header = re.search(r'\*{3}((?!CONFIDENTIAL|\*).)+\*{3}', line)
